@@ -1,13 +1,13 @@
 
-#include <algorithm>
-#include <assert.h>
+//#include <algorithm>
+//#include <assert.h>
 
 #include <set_joint_position_plugin.h>
 
 namespace gazebo {
-GZ_REGISTER_MODEL_PLUGIN(set_joint_position_plugin);
+//GZ_REGISTER_MODEL_PLUGIN(set_joint_position_plugin);
 
-////////////////////////////////////////////////////////////////////////////////
+/*////////////////////////////////////////////////////////////////////////////////
 // Constructor
 set_joint_position_plugin::set_joint_position_plugin()
 {
@@ -79,11 +79,11 @@ void set_joint_position_plugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
     // Listen to the update event. This event is broadcast every
     // simulation iteration.
     this->update_connection_ = event::Events::ConnectWorldUpdateBegin(
-                boost::bind(&set_joint_position_plugin::UpdateChild, this) );
+                boost::bind(&set_joint_position_plugin::UpdateChild, this) );*/
 
 
     /* Checking the list of joints */
-    this->joints_list = _model->GetJoints();
+    /*this->joints_list = _model->GetJoints();
 
 }
 
@@ -141,7 +141,7 @@ void set_joint_position_plugin::QueueThread()
     {
         this->queue_.callAvailable( ros::WallDuration(timeout) );
     }
-}
+}*/
 
 
 }

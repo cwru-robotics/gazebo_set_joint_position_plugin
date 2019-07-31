@@ -30,6 +30,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/subscription.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <rclcpp/time.hpp>
 
 namespace gazebo{
 	class set_joint_position_plugin : public ModelPlugin{
@@ -45,6 +46,7 @@ namespace gazebo{
 			std::vector<std::string> j_names;
 			std::vector<double> j_poses;
 			event::ConnectionPtr updateConnection;
+			rclcpp::Time last_time;
 	};
 	
 	GZ_REGISTER_MODEL_PLUGIN(set_joint_position_plugin)

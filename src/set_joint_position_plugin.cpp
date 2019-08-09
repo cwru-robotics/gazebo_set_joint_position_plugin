@@ -60,8 +60,6 @@ namespace gazebo {
 			);
 		}
 		
-		this->last_time = this->nh->now();
-		
 		this->updateConnection = event::Events::ConnectWorldUpdateEnd(boost::bind(&set_joint_position_plugin::OnUpdate, this));
 	}
 	
@@ -73,14 +71,10 @@ namespace gazebo {
 	}
 	
 	void set_joint_position_plugin::CB_joint_msg(const sensor_msgs::msg::JointState::SharedPtr msg){
-		RCLCPP_WARN(this->nh->get_logger(), "GOT CB");
-		rclcpp::Duration delta = this->last_time - this->nh->now();
-		this->last_time = this->nh->now();
-		
 		for(unsigned int i = 0; i < msg->velocity.size(); i++){
 			for(unsigned int j = 0; j < this->j_names.size(); j++){
 				if(this->j_names[j].compare(msg->name[i]) == 0){
-					this->j_poses[j] += (delta.seconds() + 0.000001 * delta.nanoseconds()) * msg->velocity[i];
+					this->j_poses[j] = msg->position[i];
 					break;
 				}
 				RCLCPP_WARN(this->nh->get_logger(),
@@ -90,4 +84,6 @@ namespace gazebo {
 			}
 		}
 	}
+	
+	GZ_REGISTER_MODEL_PLUGIN(set_joint_position_plugin)
 }

@@ -41,6 +41,14 @@ ament_target_dependencies(set_joint_position_plugin
 )
 ament_export_libraries(set_joint_position_plugin)
 
+add_library(set_joint_velocity_plugin SHARED src/set_joint_velocity_plugin.cpp)
+ament_target_dependencies(set_joint_velocity_plugin
+	${GAZEBO_LIBRARIES}
+	"rclcpp" "gazebo" "sensor_msgs"
+	#${Boost_LIBRARIES}
+)
+ament_export_libraries(set_joint_velocity_plugin)
+
 #TODO Figure out if all of this stuff is ACTUALLY necessary for the library to go where it's supposed to go.
 ament_export_include_directories(include)
 ament_export_dependencies(rclcpp)
@@ -61,7 +69,7 @@ install(
 )
 
 install(
-	TARGETS set_joint_position_plugin
+	TARGETS set_joint_position_plugin set_joint_velocity_plugin
 	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION lib
 	RUNTIME DESTINATION bin

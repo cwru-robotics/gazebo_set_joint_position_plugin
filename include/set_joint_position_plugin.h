@@ -26,10 +26,10 @@
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/physics/physics.hh>
 
-
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/subscription.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <rclcpp/time.hpp>
 
 namespace gazebo{
 	class set_joint_position_plugin : public ModelPlugin{
@@ -38,6 +38,7 @@ namespace gazebo{
 		
 		private:
 			void CB_joint_msg(const sensor_msgs::msg::JointState::SharedPtr msg);
+		protected:
 			std::shared_ptr<rclcpp::Node> nh;
 			std::shared_ptr<rclcpp::Subscription<sensor_msgs::msg::JointState> > sub;
 			physics::ModelPtr mod;
@@ -46,7 +47,5 @@ namespace gazebo{
 			std::vector<double> j_poses;
 			event::ConnectionPtr updateConnection;
 	};
-	
-	GZ_REGISTER_MODEL_PLUGIN(set_joint_position_plugin)
 }
 #endif

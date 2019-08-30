@@ -13,21 +13,20 @@
 	<!-- BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
 	<license>TODO</license>
 
-	<url type="repository">https://github.com/cwru-robotics/gazebo_set_joint_position_plugin/tree/dashing-custom</url>
+	<url type="repository">https://github.com/cwru-robotics/gazebo_set_joint_position_plugin/tree/melodic</url>
 
-	<buildtool_depend>ament_cmake</buildtool_depend>
+	<buildtool_depend>catkin</buildtool_depend>
 	
 	<build_depend>gazebo_ros</build_depend>
-	<build_depend>rclcpp</build_depend>
+	<build_depend>roscpp</build_depend>
 	<build_depend>sensor_msgs</build_depend>
 
 	<run_depend>gazebo_ros</run_depend>
-	<run_depend>rclcpp</run_depend>
+	<run_depend>roscpp</run_depend>
 	<run_depend>sensor_msgs</run_depend>
 	
 	<!-- The export tag contains other, unspecified, tags -->
 	<export>
-		<build_type>ament_cmake</build_type>
 		<gazebo_ros
 			plugin_path="${prefix}/lib"
 			gazebo_media_path="${prefix}"

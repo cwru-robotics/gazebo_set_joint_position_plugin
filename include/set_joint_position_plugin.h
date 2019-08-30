@@ -26,10 +26,10 @@
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/physics/physics.hh>
 
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp/subscription.hpp>
-#include <sensor_msgs/msg/joint_state.hpp>
-#include <rclcpp/time.hpp>
+#include <ros/ros.h>
+//#include <rclcpp/subscription.hpp>
+#include <sensor_msgs/JointState.h>
+#include <ros/time.h>
 
 namespace gazebo{
 	class set_joint_position_plugin : public ModelPlugin{
@@ -37,10 +37,11 @@ namespace gazebo{
 		public: void OnUpdate();
 		
 		private:
-			void CB_joint_msg(const sensor_msgs::msg::JointState::SharedPtr msg);
+			void CB_joint_msg(const sensor_msgs::JointState::ConstPtr & msg);
 		protected:
-			std::shared_ptr<rclcpp::Node> nh;
-			std::shared_ptr<rclcpp::Subscription<sensor_msgs::msg::JointState> > sub;
+			ros::NodeHandle nh_inner;
+			ros::NodeHandle * nh;
+			ros::Subscriber sub;
 			physics::ModelPtr mod;
 			//TODO Replace with hashmap for speed.
 			std::vector<std::string> j_names;

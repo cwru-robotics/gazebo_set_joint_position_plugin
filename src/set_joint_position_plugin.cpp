@@ -59,23 +59,32 @@ namespace gazebo {
 			ROS_INFO("\t%s", this->j_names[i].c_str());
 		}
 		
+		/*for(unsigned int i = 0; i < this->j_names.size(); i++){
+			mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->GetChild()->*/
+		
 		this->updateConnection = event::Events::ConnectWorldUpdateEnd(boost::bind(&set_joint_position_plugin::OnUpdate, this));
 	}
 	
 	void set_joint_position_plugin::OnUpdate(){
 		ros::spinOnce();
 		for(unsigned int i = 0; i < this->j_names.size(); i++){
-			this->mod->SetJointPosition(this->mod->GetName() + "::" + this->j_names[i], this->j_poses[i]);
+			this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetPosition(0, this->j_poses[i], true);
+			//this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetProvideFeedback(false);
 		}
 	}
 	
 	void set_joint_position_plugin::CB_joint_msg(const sensor_msgs::JointStateConstPtr & msg){
 		for(unsigned int i = 0; i < msg->velocity.size(); i++){
+			bool found = false;
 			for(unsigned int j = 0; j < this->j_names.size(); j++){
+				//ROS_INFO("Comparing \"%s\" to \"%s\"", this->j_names[j].c_str(), msg->name[i].c_str()
 				if(this->j_names[j].compare(msg->name[i]) == 0){
 					this->j_poses[j] = msg->position[i];
+					found = true;
 					break;
 				}
+			}
+			if(!found){
 				ROS_WARN("Asked to directly control a non--directly-controllable joint %s",
 					msg->name[i].c_str()
 				);

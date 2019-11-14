@@ -68,7 +68,7 @@ namespace gazebo {
 	void set_joint_position_plugin::OnUpdate(){
 		ros::spinOnce();
 		for(unsigned int i = 0; i < this->j_names.size(); i++){
-			this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetPosition(0, this->j_poses[i], true);
+			this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetPosition(0, this->j_poses[i]);
 			//this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetProvideFeedback(false);
 		}
 	}

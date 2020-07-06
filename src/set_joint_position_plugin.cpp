@@ -69,6 +69,7 @@ namespace gazebo {
 		ros::spinOnce();
 		for(unsigned int i = 0; i < this->j_names.size(); i++){
 			this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetPosition(0, this->j_poses[i]);
+			this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetVelocity(0, 0.0);
 			//this->mod->GetJoint(this->mod->GetName() + "::" + this->j_names[i])->SetProvideFeedback(false);
 		}
 	}

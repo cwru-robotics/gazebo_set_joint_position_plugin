@@ -75,7 +75,7 @@ namespace gazebo {
 	}
 	
 	void set_joint_position_plugin::CB_joint_msg(const sensor_msgs::JointStateConstPtr & msg){
-		for(unsigned int i = 0; i < msg->velocity.size(); i++){
+		for(unsigned int i = 0; i < msg->position.size(); i++){
 			bool found = false;
 			for(unsigned int j = 0; j < this->j_names.size(); j++){
 				//ROS_INFO("Comparing \"%s\" to \"%s\"", this->j_names[j].c_str(), msg->name[i].c_str()
